@@ -54,9 +54,21 @@ public class PlayerSearchMain {
 
 				break;
 			case 2:
-				System.out.println("Thankq for your intrest this option is still under construction");
-
+               System.out.println("Enter a contact number to get Player details...");
+				
+				try {
+					long contact = Long.parseLong(sc.nextLine());
+					Player player = playerSearchService.getPlayerbyContact(contact);
+					if(player!=null) {
+						System.out.println("Player found with contact("+contact+")..Details of the player is: \n"+player.toString());
+					}
+				}catch (NumberFormatException e) {
+					System.out.println("Invalid contact number. Please enter a 10 digit number without spaces and special charcators in between");
+				}catch (BusinessException e) {
+					System.out.println(e.toString());
+				}
 				break;
+
 			case 3:
 				
 
@@ -79,7 +91,20 @@ public class PlayerSearchMain {
 
 				break;
 			case 4:
-				System.out.println("Thankq for your intrest this option is still under construction");
+				System.out.println("Enter a Gender to get all players with gender");
+				String gender=sc.nextLine();
+				try {
+					List<Player> playerGender=playerSearchService.getPlayersByGender(gender);
+					if (playerGender != null && playerGender.size() > 0) {
+						System.out.println(
+								"There are " + playerGender.size() + " no of player/s.. with Gender = "+gender+".Printing their details.....");
+						for (Player p : playerGender) {
+							System.out.println(p);
+						}
+					}
+				} catch (BusinessException e1) {
+					System.out.println(e1.getMessage());
+				}
 
 				break;
 			case 5:
@@ -100,11 +125,37 @@ public class PlayerSearchMain {
 
 				break;
 			case 6:
-				System.out.println("Thanks for your intrest this option is still under construction");
+				System.out.println("Enter a date to see all players born on that day");
+				String dob = sc.nextLine();
+				try {
+					List<Player> playersDOBList = playerSearchService.getPlayersByDob(dob);
+					if (playersDOBList != null && playersDOBList.size() > 0) {
+						System.out.println("There are " + playersDOBList.size() + " number of player/s on team " + dob + " ... Printing their details");
+						for (Player p:playersDOBList) {
+							System.out.println(p);
+						}
+					}
+				} catch (BusinessException e) {
+					System.out.println(e.getMessage());
+				}
 
 				break;
 			case 7:
-				System.out.println("Thanks for your intrest this option is still under construction");
+				System.out.println("Enter Player Name to get details");
+				String name=sc.nextLine();
+				try {
+					List<Player> playerName=playerSearchService.getPlayersByName(name);
+					if (playerName != null && playerName.size() > 0) {
+						System.out.println(
+								"There are " + playerName.size() + " no of player/s.. with name = "+name+".Printing their details.....");
+						for (Player p : playerName) {
+							System.out.println(p);
+						}
+					}
+				} catch (BusinessException e1) {
+					System.out.println(e1.getMessage());
+				}
+
 
 				break;
 			case 8:
